@@ -62,5 +62,5 @@ def save_data_to_array_test(path=DATA_TEST_PATH):
 
 
 
-#save_data_to_array()
+save_data_to_array()
 save_data_to_array_test()
