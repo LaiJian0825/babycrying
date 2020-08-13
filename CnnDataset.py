@@ -26,15 +26,17 @@ import keras.backend as K
 
 def CnnOne(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=input_shape))
+    model.add(Conv2D(16, kernel_size=(5, 5), activation='relu', input_shape=input_shape))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(64, kernel_size=(2, 2), activation='relu'))
+    model.add(Conv2D(32, kernel_size=(3, 3), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(128, kernel_size=(2, 2), activation='relu'))
+    model.add(Conv2D(32, kernel_size=(3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dropout(0.25))
-    model.add(Dense(128, activation='relu'))
+    model.add(Dense(512, activation='relu'))
     model.add(Dropout(0.25))
     model.add(Dense(64, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
@@ -572,8 +574,9 @@ def ResNet50(input_shape = (699, 128, 1), classes = 6):
 
     # output layer
     X = Flatten()(X)
+    
+    X = Dense(512)(X)
     X = Dropout(0.3)(X)
-    X = Dense(1024)(X)
     X = Dense(100)(X)
     X = Dense(classes, activation="softmax", name="fc"+str(classes), kernel_initializer=glorot_uniform(seed=0))(X)
     # Create model

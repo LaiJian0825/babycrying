@@ -38,11 +38,11 @@ for idx, (tr_idx, val_idx) in enumerate(skf.split(X, Y)):
 
     y_train_hot = to_categorical(y_train)
     y_test_hot = to_categorical(y_test)
-    if idx==0 or idx ==4 :
+    if idx==1 or idx ==4 :
         model = CnnOne((times, width, channel), num_classes)
-    if idx==2 or idx ==1:
+    if idx==3 or idx ==2:
         model = tiny_XCEPTION((times, width, channel), num_classes)
-    if idx==3:
+    if idx==0:
         model = model = ResNet50((times, width, channel),num_classes)
 
     model.summary()   

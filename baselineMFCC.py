@@ -20,6 +20,13 @@ width =20
 channel = 1
 X, Y = get_train_test(DATA_PATH,'/')
 skf = StratifiedKFold(n_splits=5)
+epochs = 100
+batch_size = 6
+verbose = 1
+num_classes = 6
+times = 400
+width =128
+channel = 1
 
 for idx, (tr_idx, val_idx) in enumerate(skf.split(X, Y)):
     print(idx)
