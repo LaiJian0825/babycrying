@@ -24,9 +24,9 @@ import keras.backend as K
 
 
 
-def CnnOne():
+def CnnOne(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=(20, 400, 1)))
+    model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=input_shape))
     model.add(Conv2D(48, kernel_size=(2, 2), activation='relu'))
     model.add(Conv2D(128, kernel_size=(2, 2), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -35,7 +35,7 @@ def CnnOne():
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.25))
     model.add(Dense(64, activation='relu'))
-    model.add(Dense(6, activation='softmax'))
+    model.add(Dense(num_classes, activation='softmax'))
 
     return model
 
@@ -572,13 +572,8 @@ def ResNet50(input_shape = (699, 128, 1), classes = 6):
     X = Flatten()(X)
     X = Dropout(0.3)(X)
     X = Dense(1024)(X)
-
-
-    X = Dropout(0.2)(X)
     X = Dense(100)(X)
-    X = Dense(6, activation="softmax", name="fc"+str(classes), kernel_initializer=glorot_uniform(seed=0))(X)
-    
-    
+    X = Dense(classes, activation="softmax", name="fc"+str(classes), kernel_initializer=glorot_uniform(seed=0))(X)
     # Create model
     model = Model(inputs=X_input, outputs=X, name="ResNet50")
 
