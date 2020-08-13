@@ -27,7 +27,9 @@ import keras.backend as K
 def CnnOne(input_shape, num_classes):
     model = Sequential()
     model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=input_shape))
-    model.add(Conv2D(48, kernel_size=(2, 2), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(64, kernel_size=(2, 2), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Conv2D(128, kernel_size=(2, 2), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())

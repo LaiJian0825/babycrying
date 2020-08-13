@@ -16,7 +16,7 @@ def get_labels(path=DATA_PATH):
 
 def wav2mfcc(file_path):
     wave, sr = librosa.load(file_path, mono=True, sr=16000)
-    mfcc = librosa.feature.mfcc(wave, sr=16000)
+    mfcc = librosa.feature.mfcc(wave, sr=16000, n_mfcc=128)
     
     mfcc = np.transpose(mfcc, (1, 0))
     print(file_path)
@@ -33,7 +33,7 @@ def save_data_to_array(path=DATA_PATH):
         wavfiles = [path + label + '/' + wavfile for wavfile in os.listdir(path + '/' + label)]
         #print(wavfiles)
         for wavfile in tqdm(wavfiles, "Saving vectors of label - '{}'".format(label)):
-            mfcc = np.zeros((400, 20))
+            mfcc = np.zeros((400, 128))
             mfcc_feat = wav2mfcc(wavfile)[:400,: ]
             mfcc[:mfcc_feat.shape[0], :] = mfcc_feat
             mfcc_vectors.append(mfcc) 
@@ -46,7 +46,7 @@ def save_data_to_array_test(path=DATA_TEST_PATH):
         
     wavfiles = [DATA_TEST_PATH + '/' + wavfile for wavfile in os.listdir(DATA_TEST_PATH)]
     for wavfile in tqdm(wavfiles, "Saving vectors of label - '{}'".format('test')):
-        mfcc = np.zeros((400, 20))
+        mfcc = np.zeros((400, 128))
         mfcc_feat = wav2mfcc(wavfile)[:400,: ]
         mfcc[:mfcc_feat.shape[0], :] = mfcc_feat
         mfcc_vectors.append(mfcc)

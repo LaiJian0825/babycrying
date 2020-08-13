@@ -16,16 +16,16 @@ DATA_TEST_PATH = './data/test'
 X1, Y = get_train_test(DATA_PATH,'/Mel')
 X2, Y2 = get_train_test(DATA_PATH,'/')
 X = np.concatenate((X1, X2), axis = 1)
-print(X1.shape)
+#print(X1.shape)
 print(X.shape)
 skf = StratifiedKFold(n_splits=5)
 
 epochs = 100
-batch_size = 8
+batch_size = 6
 verbose = 1
 num_classes = 6
 times = 1099
-width =20
+width =128
 channel = 1
 for idx, (tr_idx, val_idx) in enumerate(skf.split(X, Y)):
 
@@ -38,9 +38,9 @@ for idx, (tr_idx, val_idx) in enumerate(skf.split(X, Y)):
 
     y_train_hot = to_categorical(y_train)
     y_test_hot = to_categorical(y_test)
-    if idx==1 or idx ==4 :
+    if idx==0 or idx ==4 :
         model = CnnOne((times, width, channel), num_classes)
-    if idx==2 or idx ==0:
+    if idx==2 or idx ==1:
         model = tiny_XCEPTION((times, width, channel), num_classes)
     if idx==3:
         model = model = ResNet50((times, width, channel),num_classes)
